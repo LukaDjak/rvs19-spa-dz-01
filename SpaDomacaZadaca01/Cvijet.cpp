@@ -3,7 +3,6 @@ Cvijet::Cvijet(sf::RenderWindow* window)
 {
 	this->window = window;
 	t = frameClock.restart();
-	maxSize = false;
 }
 
 void Cvijet::draw()
@@ -70,21 +69,20 @@ void Cvijet::draw()
 	sunce.setPosition(750, -50);
 	window->draw(sunce);
 
-	//handling time
-	t = frameClock.getElapsedTime();
-	if (t.asSeconds() >= 1)
-	{
-		frameClock.restart();
-		maxSize = !maxSize;
-	}
-	float scaleFactor = 0.025 * (maxSize ? -t.asMilliseconds() : t.asMilliseconds());
-
 	//kinda animated zrake sunca
 	for (size_t i = 0; i < 7; i++)
 	{
-		sf::Vector2f scale(10.f, (i % 2 == 0) ? 10.f : 7.f);
-		sf::RectangleShape zraka(scale);
-		zraka.scale(1, maxSize? -scaleFactor : scaleFactor);
+		sf::Vector2f size(10.f, (i % 2 == 0) ? 10.f : 7.f);
+		sf::RectangleShape zraka(size);
+
+		//animation time management
+		sf::Time elapsed = frameClock.restart();
+		scale += scaleSpeed * elapsed.asSeconds();
+		if (scale >= 2.0f || scale <= 1.0f)
+			scaleSpeed = -scaleSpeed;
+
+		zraka.setScale(1.f, 30 * scale);
+		zraka.setOrigin(zraka.getSize() / 2.0f);
 		zraka.setFillColor(sf::Color(255, 255, 0));
 		zraka.setPosition(850, 37.5f);
 		zraka.setRotation((i + 1) * 15);

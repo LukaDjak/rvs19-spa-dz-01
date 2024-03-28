@@ -7,7 +7,8 @@ private:
 	sf::RenderWindow* window;
 	sf::Clock frameClock;
 	sf::Time t;
-	bool maxSize;
+	float scale = 1.f;
+	float scaleSpeed = .5f;
 public:
 	Cvijet(sf::RenderWindow* window);
 	void draw();
