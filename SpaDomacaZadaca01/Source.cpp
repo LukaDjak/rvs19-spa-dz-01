@@ -7,7 +7,7 @@ int main()
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 
-	//creaing SFML window
+	//creating SFML window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Hello, SFML world!", sf::Style::Default, settings);
 	window.setFramerateLimit(60);
 	Cvijet cvijet(&window);

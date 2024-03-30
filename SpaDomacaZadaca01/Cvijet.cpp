@@ -63,23 +63,23 @@ void Cvijet::draw()
 	ground.setFillColor(sf::Color(45, 128, 13));
 	window->draw(ground);
 
-	//animated sunce
+	//sunce
 	sf::CircleShape sunce(100.f);
 	sunce.setFillColor(sf::Color(255, 255, 0));
 	sunce.setPosition(750, -50);
 	window->draw(sunce);
+
+	//animation time management
+	sf::Time elapsed = frameClock.restart();
+	scale += scaleSpeed * elapsed.asSeconds();
+	if (scale >= 2.0f || scale <= 1.0f)
+		scaleSpeed = -scaleSpeed;
 
 	//kinda animated zrake sunca
 	for (size_t i = 0; i < 7; i++)
 	{
 		sf::Vector2f size(10.f, (i % 2 == 0) ? 10.f : 7.f);
 		sf::RectangleShape zraka(size);
-
-		//animation time management
-		sf::Time elapsed = frameClock.restart();
-		scale += scaleSpeed * elapsed.asSeconds();
-		if (scale >= 2.0f || scale <= 1.0f)
-			scaleSpeed = -scaleSpeed;
 
 		zraka.setScale(1.f, 30 * scale);
 		zraka.setOrigin(zraka.getSize() / 2.0f);
